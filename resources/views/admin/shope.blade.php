@@ -82,12 +82,12 @@
             @foreach($categories as $category)
             <div class="tab-pane" id="category_{{$category->id}}">
                 <ul class="row">
-                    @foreach(App\Product::where('category_id',$category->id)->get()  as $category)
+                    @foreach(App\Product::where('category_id',$category->id)->get()  as $category_wise_product)
                     <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                         <div class="product-wrap">
                             <div class="product-img">
                                 <span>Sale</span>
-                                <img src="{{asset('uploads/product_photo')}}/{{$category->product_thumbnail_photo}}" alt="{{$category->product_name}}">
+                                <img src="{{asset('uploads/product_photo')}}/{{$category_wise_product->product_thumbnail_photo}}" alt="{{$category->product_name}}">
                                 <div class="product-icon flex-style">
                                     <ul>
                                         <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -97,8 +97,8 @@
                                 </div>
                             </div>
                             <div class="product-content">
-                                <h3><a href="single-product.html">{{$category->product_name}}</a></h3>
-                                <p class="pull-left">${{$category->product_price}}
+                                <h3><a href="single-product.html">{{$category_wise_product->product_name}}</a></h3>
+                                <p class="pull-left">${{$category_wise_product->product_price}}
 
                                 </p>
                                 <ul class="pull-right d-flex">

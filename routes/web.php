@@ -44,3 +44,7 @@ Route::post('/update/category/post', 'ProductController@UpdateCategoryPost')->na
 Route::get('/delete/category/{id}', 'ProductController@DeleteCategory')->name('DeleteCategory');
 Route::get('/restore/category/{id}', 'ProductController@RestoreCategory')->name('RestoreCategory');
 Route::get('/hard_delete/category/{id}', 'ProductController@HardDeleteCategory')->name('HardDeleteCategory');
+
+//CartController
+Route::post('/add/to/cart','CartController@AddToCart')->name('AddToCart');
+Route::get('cart','CartController@Cart')->name('Cart');

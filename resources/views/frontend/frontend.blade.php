@@ -34,9 +34,9 @@
 
 <body>
     <!--Start Preloader-->
-    <div class="preloader-wrap">
+    {{-- <div class="preloader-wrap">
         <div class="spinner"></div>
-    </div>
+    </div> --}}
     <!-- search-form here -->
     <div class="search-area flex-style">
         <span class="closebar">Close</span>
@@ -128,7 +128,7 @@
                             <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
+                                <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>7</span></a>
                                 <ul class="cart-wrap dropdown_style">
                                     <li class="cart-items">
                                         <div class="cart-img">
@@ -159,42 +159,37 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>3</span></a>
+                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>
+                                        {{ App\Cart::where('ip_address',request()->ip())->count() }}
+                                    </span></a>
+                                @php
+                                $sub_total=0;
+                                @endphp
                                 <ul class="cart-wrap dropdown_style">
+                                    @foreach( App\Cart::where('ip_address',request()->ip())->get() as $cart)
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{asset('ft_asset')}}/images/cart/1.jpg" alt="">
+                                            <img src="{{ asset('uploads/product_photo') }}/{{ App\Product::find($cart->product_id)->product_thumbnail_photo }}"
+                                                width="50" alt="">
                                         </div>
                                         <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
+                                            <a
+                                                href="cart.html">{{ App\Product::find($cart->product_id)->product_name }}</a>
+                                            <span>QTY :{{ $cart->quantity }}</span>
+                                            <p>${{ App\Product::find($cart->product_id)->product_price  * $cart->quantity }}
+                                            </p>
+                                            @php
+                                            $sub_total=$sub_total +
+                                            App\Product::find($cart->product_id)->product_price  * $cart->quantity
+                                            @endphp
                                             <i class="fa fa-times"></i>
                                         </div>
                                     </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{asset('ft_asset')}}/images/cart/3.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{asset('ft_asset')}}/images/cart/2.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li>Subtotol: <span class="pull-right">$70.00</span></li>
+
+                                    @endforeach
+
+
+                                    <li>Subtotol: <span class="pull-right">${{ $sub_total }}</span></li>
                                     <li>
                                         <button>Check Out</button>
                                     </li>

@@ -28,8 +28,10 @@
     <!-- Meta -->
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
-
+    @auth
     <title>{{Auth::user()->name}}</title>
+    @endauth
+
 
     <!-- vendor css -->
     <link href="{{asset('db_asset/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -108,6 +110,8 @@
             <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i
                         class="icon ion-navicon-round"></i></a></div>
         </div><!-- sl-header-left -->
+        @auth
+
         <div class="sl-header-right">
             <nav class="nav">
                 <div class="dropdown">
@@ -137,6 +141,7 @@
                 </a>
             </div><!-- navicon-right -->
         </div><!-- sl-header-right -->
+        @endauth
     </div><!-- sl-header -->
     <!-- ########## END: HEAD PANEL ########## -->
 

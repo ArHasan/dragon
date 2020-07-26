@@ -3293,7 +3293,8 @@ ol {
     right: 0;
 }
 
-.input-style li a {
+
+.input-style li button {
     height: 35px;
     line-height: 35px;
     text-align: center;
@@ -3302,6 +3303,7 @@ ol {
     color: #fff;
     display: block;
     margin-left: 30px;
+    border: none;
 }
 
 .input-style li a:hover {

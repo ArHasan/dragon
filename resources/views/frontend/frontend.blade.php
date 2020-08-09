@@ -78,7 +78,7 @@
                                     <li><a href="wishlist.html">wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="register.html"> Login/Register </a></li>
+                            <li><a href="{{ url('customer/register') }}"> Customer Register </a></li>
                         </ul>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                                             $sub_total=$sub_total +
                                             App\Product::find($cart->product_id)->product_price  * $cart->quantity
                                             @endphp
-                                            <i class="fa fa-times"></i>
+                                            <a href="{{ url('card\delete') }}/{{ $cart->id }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </li>
 
@@ -191,7 +191,11 @@
 
                                     <li>Subtotol: <span class="pull-right">${{ $sub_total }}</span></li>
                                     <li>
-                                        <button>Check Out</button>
+                                        {{-- <button type="submit">Check Out </button> --}}
+                                        {{-- <button><a href="{{ route('Cart') }}">Check Out</a> </button> --}}
+                                        <a href="{{ url('cart') }}">
+                                            <button>Check Out</button>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -416,6 +420,16 @@
     <script src="{{asset('ft_asset')}}/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="{{asset('ft_asset')}}/js/scripts.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $('#apply-coupon-btn').click(function(){
+              var coupon_text =$('#coupon_text').val();
+              var link_to_go ="{{url('/cart')}}/"+coupon_text;
+              window.location.href  = link_to_go;
+
+          });
+        });
+    </script>
 </body>
 
 

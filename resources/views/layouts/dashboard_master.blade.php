@@ -81,6 +81,12 @@
                     <span class="menu-item-label">Product</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
+            <a href="{{route('AddCoupon')}}" class="sl-menu-link @yield('coupon')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Coupon</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
             <a href="#" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>

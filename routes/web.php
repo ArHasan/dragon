@@ -46,5 +46,19 @@ Route::get('/restore/category/{id}', 'ProductController@RestoreCategory')->name(
 Route::get('/hard_delete/category/{id}', 'ProductController@HardDeleteCategory')->name('HardDeleteCategory');
 
 //CartController
+Route::get('/cart','CartController@Cart')->name('Cart');
+Route::get('/cart/{coupon_name}','CartController@Cart')->name('Cart');
 Route::post('/add/to/cart','CartController@AddToCart')->name('AddToCart');
-Route::get('cart','CartController@Cart')->name('Cart');
+Route::get('card/delete/{cart_id}','CartController@CartDelete')->name('CartDelete');
+Route::post('card/update','CartController@CartUpdate')->name('CartDelete');
+
+//CouponController
+Route::get('add/coupon','CouponController@AddCoupon')->name('AddCoupon');
+Route::post('add/coupon/post','CouponController@AddCouponPost')->name('AddCouponPost');
+
+//CheckoutController
+Route::get('checkout','CheckoutController@Checkout')->name('Checkout');
+
+//Customer_registerController
+Route::get('customer/register','Customer_registerController@Customer')->name('customer');
+Route::post('customer/register/post','Customer_registerController@CustomerPost')->name('CustomerPost');

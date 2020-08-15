@@ -57,8 +57,13 @@ Route::get('add/coupon','CouponController@AddCoupon')->name('AddCoupon');
 Route::post('add/coupon/post','CouponController@AddCouponPost')->name('AddCouponPost');
 
 //CheckoutController
-Route::get('checkout','CheckoutController@Checkout')->name('Checkout');
+Route::post('checkout','CheckoutController@Checkout')->name('Checkout');
+Route::post('checkout/post','CheckoutController@CheckoutPost')->name('CheckoutPost');
 
 //Customer_registerController
 Route::get('customer/register','Customer_registerController@Customer')->name('customer');
 Route::post('customer/register/post','Customer_registerController@CustomerPost')->name('CustomerPost');
+
+//Stripe_Controller
+Route::get('stripe', 'StripePaymentController@stripe');
+Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');

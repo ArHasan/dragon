@@ -52,6 +52,12 @@
             <div class="col-lg-6">
                 <div class="product-single-content">
                     <h3>{{$products_info->product_name}}</h3>
+                    @if(session('cart_error'))
+                    <div class="alert alert-danger">
+                        {{ session('cart_error') }}
+                    </div>
+                    @endif
+                    <h6>Available Quantity : {{$products_info->product_quantity}}</h6>
                     <div class="rating-wrap fix">
                         <span class="pull-left">${{$products_info->product_price}}</span>
                         <ul class="rating pull-right">
@@ -64,6 +70,11 @@
                         </ul>
                     </div>
                     <p>{{$products_info->product_short_description}}</p>
+                    @if($products_info->product_quantity == 0)
+                        <div class="alert alert-danger">
+                            This product is not Available
+                        </div>
+                    @else
                     <ul class="input-style">
                         <form action="{{ route('AddToCart') }}" method="POST">
                             @csrf
@@ -74,6 +85,8 @@
                         <li><button type="submit">Add to Cart</button></li>
                     </form>
                     </ul>
+                    @endif
+
                     <ul class="cetagory">
                         <li>Category:</li>
                         <li><a href="#">{{$products_info->relationtocategorytable->category_name}}</a></li>

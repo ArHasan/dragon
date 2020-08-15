@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Cart;
 use App\Coupon;
 use Carbon\Carbon;
+use App\Product;
 
 class CartController extends Controller
 {
@@ -14,12 +15,18 @@ class CartController extends Controller
             Cart::where('product_id',$request->product_id)->where('ip_address',$request->ip())->increment('quantity',$request->quantity);
         }
         else{
-            Cart::insert([
-                'product_id'=>$request->product_id,
-                'quantity'=>$request->quantity,
-                'ip_address'=>request()->ip(),
-                'created_at'=>Carbon::now(),
-            ]);
+            if(Product::find($request->product_id)->product_quantity < $request->quantity){
+                return back()->with('cart_error','You can not add more then available product');
+            }
+            else{
+                Cart::insert([
+                    'product_id'=>$request->product_id,
+                    'quantity'=>$request->quantity,
+                    'ip_address'=>request()->ip(),
+                    'created_at'=>Carbon::now(),
+                ]);
+            }
+
         }
         return back();
     }

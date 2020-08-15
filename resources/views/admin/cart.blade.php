@@ -49,6 +49,7 @@
                         <tbody>
                             @php
                             $sub_total_cart=0;
+                            $flag=0;
                             @endphp
                             @forelse($carts as $cart)
                             <tr>
@@ -56,7 +57,14 @@
                                         src="{{ asset('uploads/product_photo') }}/{{ App\Product::find($cart->product_id)->product_thumbnail_photo  }}"
                                         alt=""></td>
                                 <td class="product"><a
-                                        href="single-product.html">{{ App\Product::find($cart->product_id)->product_name }}</a>
+                                        href="{{ route('shop') }}">{{ App\Product::find($cart->product_id)->product_name }} <br> Available quantity : {{ App\Product::find($cart->product_id)->product_quantity }} </a>
+                                      @if( App\Product::find($cart->product_id)->product_quantity < $cart->quantity)
+                                     <br> <span class="text-danger">You have to remove or decrease product</span>
+                                         @php
+                                             $flag++;
+                                         @endphp
+                                      @endif
+
                                 </td>
                                 <td class="ptice">${{ App\Product::find($cart->product_id)->product_price }}</td>
                                 <td class="quantity cart-plus-minus">
@@ -111,15 +119,19 @@
                     <li><span class="pull-left"> Discount Amount (-{{ $discount_amount}}%) </span>{{ $sub_total_cart * $discount_amount/100 }} </li>
                     @endisset
                     @isset($discount_amount)
-                    <li><span class="pull-left"> Total </span> {{$sub_total_cart - ($sub_total_cart * $discount_amount)/100 }}</li>
+                    <li><span class="pull-left"> Total </span> {{$final_total = $sub_total_cart - ($sub_total_cart * $discount_amount)/100 }}</li>
                     @else
-                    <li><span class="pull-left"> Total </span> </li>
+                    <li><span class="pull-left"> Total </span>${{ $final_total = $sub_total_cart }} </li>
                     @endisset
                 </ul>
-                <form action="">
-                    <button type="submit">Proceed to Checkout</button>
-
+                @if($flag==0)
+                <form action="{{ url('checkout') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="total" value="{{$final_total}}">
+                    <button type="submit" class="btn btn-danger">Proceed to Checkout</button>
                 </form>
+                @endif
+
             </div>
         </div>
     </div>
